@@ -1,0 +1,12 @@
+package sbnz.integracija;
+
+import sbnz.integracija.example.domain.User;
+import sbnz.integracija.example.domain.AgeGroup;
+
+rule "Age Group - Young ELDER"
+    when
+        $i: Users(age > 60)
+    then
+        $i.setAgeGroup(AgeGroup.ELDER);
+        update($i);
+end
