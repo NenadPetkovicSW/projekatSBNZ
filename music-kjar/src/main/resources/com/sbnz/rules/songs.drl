@@ -1,0 +1,13 @@
+package com.sbnz.rules;
+
+import com.sbnz.music.domain.Song;
+
+rule "Print Song Name"
+
+    when
+        $s : Song()
+        
+    then
+        System.out.println($s.getTrack_name());
+
+end
