@@ -9,15 +9,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.sbnz.music.domain.Song;
+import com.sbnz.music.domain.User;
 import com.sbnz.music.repository.SongRepository;
+import com.sbnz.music.repository.UserRepository;
 
 @Configuration
 public class KieConfiguration {
     private final SongRepository songRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public KieConfiguration(SongRepository songRepository) {
-        this.songRepository = songRepository;
+    public KieConfiguration(SongRepository songRepository, UserRepository userRepository) {
+    	this.songRepository = songRepository;
+    	this.userRepository = userRepository;
 
     }
 
@@ -36,6 +40,10 @@ public class KieConfiguration {
 
         for (Song song : songRepository.findAll()) {
             kieSession.insert(song);
+        }
+        
+        for (User user : userRepository.findAll()) {
+            kieSession.insert(user);
         }
 
         return kieSession;

@@ -1,13 +1,53 @@
 package com.sbnz.rules;
 
 import com.sbnz.music.domain.Song;
+import com.sbnz.music.domain.User;
+import com.sbnz.music.domain.AgeGroup;
 
-rule "Print Song Name"
+rule "Create - Teens"
 
     when
-        $s : Song()
+        $u : User(age < 20)
         
     then
-        System.out.println($s.getTrack_name());
+        $u.setAgeGroup(AgeGroup.TEEN);
+        update($u);
+        System.out.println("TEEN");
+        
+end
 
+rule "Create - YOUNG ADULTS"
+
+    when
+        $u : User(19 < age, age < 40)
+        
+    then
+        $u.setAgeGroup(AgeGroup.YOUNG_ADULT);
+        update($u);
+        System.out.println("YOUNG_ADULT");
+        
+end
+
+rule "Create - ADULTS"
+
+    when
+        $u : User(39 < age, age < 65)
+        
+    then
+        $u.setAgeGroup(AgeGroup.ADULT);
+        update($u);
+        System.out.println("ADULT");
+        
+end
+
+rule "Create - Elder"
+
+    when
+        $u : User(64 < age)
+        
+    then
+        $u.setAgeGroup(AgeGroup.ELDER);
+        update($u);
+        System.out.println("ELDER");
+        
 end

@@ -24,12 +24,11 @@ public class SongService {
     }
 
     public List<Song> getSongs() {
-        Song song = new Song(Long.valueOf(3), "Artist 3", "Song 3");
-
-        rulesSession.insert(song);
-        rulesSession.fireAllRules();
-
-        songRepository.save(song);
+//        Song song = new Song(Long.valueOf(800), "Artist 3", "Song 3", "3/3/2000", "Rock", 300, "Sad", 1.0);
+//
+//        rulesSession.insert(song);
+//        rulesSession.fireAllRules();
+//        songRepository.save(song);
 
         return songRepository.findAll();
     }
