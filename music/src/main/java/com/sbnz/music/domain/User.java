@@ -1,18 +1,24 @@
 package com.sbnz.music.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 @Entity
@@ -31,7 +37,7 @@ public class User {
 	@Column(name= "password", nullable = false)
 	private String password;
 	@Column(name= "age", nullable = false)
-	private int age;
+	private Integer age;
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private UserType type;
@@ -45,6 +51,10 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "song_id"))
 	private List<Song> songs;
+    
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
+    private List<PlayList> playlists = new ArrayList<>();
 
 	public User(Long id, String username, String first_name, String last_name, String password, int age, UserType type,
 			AgeGroup ageGroup, List<Song> songs) {
@@ -88,6 +98,15 @@ public class User {
 		this.age = age;
 		this.type = type;
 		this.ageGroup = ageGroup;
+	}
+
+	
+	public List<PlayList> getPlaylists() {
+		return playlists;
+	}
+
+	public void setPlaylists(List<PlayList> playlists) {
+		this.playlists = playlists;
 	}
 
 	public Long getId() {

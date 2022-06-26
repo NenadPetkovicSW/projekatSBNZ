@@ -2,7 +2,10 @@ package com.sbnz.rules;
 
 import com.sbnz.music.domain.Song;
 import com.sbnz.music.domain.User;
+import com.sbnz.music.domain.UserType;
 import com.sbnz.music.domain.AgeGroup;
+import com.sbnz.music.domain.PlayList;
+import com.sbnz.music.domain.PlayListType;
 
 rule "Create - Teens"
 
@@ -50,4 +53,46 @@ rule "Create - Elder"
         update($u);
         System.out.println("ELDER");
         
+end
+
+rule "Song - no age"
+
+	when 
+	    $s : Song(age == null)
+	    
+	then
+		 $s.setAge(0.1);
+         update($s);
+	     System.out.println($s);
+	    
+end
+
+rule "Playlist ALFA - Count len"
+	when
+		 $pl : PlayList($songs : songs, type == PlayListType.ALFA)
+		 accumulate( Song( $l: len ) from $songs; $l: sum( $l ))
+	then
+		$pl.setLen($l);
+		update($pl);
+	 	System.out.println($l);
+end
+
+rule "Playlist BETA - Count len"
+	when
+		 $pl : PlayList($songs : songs, type == PlayListType.BETA)
+		 accumulate( Song( $l: len ) from $songs; $l: sum( $l ))
+	then
+		$pl.setLen($l);
+		update($pl);
+	 	System.out.println($l);
+end
+
+rule "Playlist GAMA - Count len"
+	when
+		 $pl : PlayList($songs : songs, type == PlayListType.GAMA)
+		 accumulate( Song( $l: len ) from $songs; $l: sum( $l ))
+	then
+		$pl.setLen($l);
+		update($pl);
+	 	System.out.println($l);
 end

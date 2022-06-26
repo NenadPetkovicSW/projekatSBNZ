@@ -24,13 +24,48 @@ public class SongService {
     }
 
     public List<Song> getSongs() {
-//        Song song = new Song(Long.valueOf(800), "Artist 3", "Song 3", "3/3/2000", "Rock", 300, "Sad", 1.0);
-//
-//        rulesSession.insert(song);
-//        rulesSession.fireAllRules();
-//        songRepository.save(song);
 
-        return songRepository.findAll();
+      return songRepository.findAll();
+  
     }
+    
+    public List<Song> findByTopicIs(String topic) {
 
+      return songRepository.findByTopicIs(topic);
+  
+    }
+    
+    public List<Song> findByGenreIs(String genre) {
+
+
+        return songRepository.findByGenreIs(genre);
+    }
+    
+    public List<Song> findByAgeBetween(Double startAge, Double endAge) {
+
+
+        return songRepository.findByAgeBetween(startAge, endAge);
+    }
+    
+    public List<Song> findAlfaPlaylist(Long userId, Double age) {
+
+        return songRepository.findAlfaPlaylist(userId, age);
+    
+      }
+    
+    public List<Song> findBetaPlaylist(Long userId) {
+
+        return songRepository.findBetaPlaylist(userId);
+    
+      }
+    
+    public List<Song> findGamaPlaylist(Long userId, Double age) {
+
+        return songRepository.findGamaPlaylist(userId, age);
+    
+      }
+    
+  
+    
+    
 }

@@ -34,6 +34,27 @@ public class UserService {
         return userRepository.findAll();
     }
     
+    public User getUser(Long userId) {
+
+        rulesSession.fireAllRules();
+
+        return userRepository.findById(userId).get();
+    }
+    
+    public List<String> getLikedGenres(Long userId) {
+
+        rulesSession.fireAllRules();
+
+        return userRepository.findLikedGenres(userId);
+    }
+    
+    public List<String> getLikedTopics(Long userId) {
+
+        rulesSession.fireAllRules();
+
+        return userRepository.findLikedTopics(userId);
+    }
+    
     public User likeSong(Long userId, Long songId) {
     	
     	User user = userRepository.findById(userId).get();

@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.sbnz.music.domain.PlayList;
 import com.sbnz.music.domain.Song;
 import com.sbnz.music.domain.User;
+import com.sbnz.music.repository.PlayListRepository;
 import com.sbnz.music.repository.SongRepository;
 import com.sbnz.music.repository.UserRepository;
 
@@ -17,12 +19,13 @@ import com.sbnz.music.repository.UserRepository;
 public class KieConfiguration {
     private final SongRepository songRepository;
     private final UserRepository userRepository;
+    private final PlayListRepository playListRepository;
 
     @Autowired
-    public KieConfiguration(SongRepository songRepository, UserRepository userRepository) {
+    public KieConfiguration(SongRepository songRepository, UserRepository userRepository, PlayListRepository playListRepository) {
     	this.songRepository = songRepository;
     	this.userRepository = userRepository;
-
+    	this.playListRepository = playListRepository;
     }
 
     @Bean
@@ -44,6 +47,10 @@ public class KieConfiguration {
         
         for (User user : userRepository.findAll()) {
             kieSession.insert(user);
+        }
+        
+        for (PlayList playList : playListRepository.findAll()) {
+            kieSession.insert(playList);
         }
 
         return kieSession;

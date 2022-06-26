@@ -22,62 +22,84 @@ public class Song {
 	@Column(name= "genre", nullable = false)
 	private String genre;
 	@Column(name= "len", nullable = false)
-	private int len;
+	private Integer len;
 	@Column(name= "topic", nullable = false)
 	private String topic;
 	@Column(name= "age", nullable = false)
-	private double age;
+	private Double age;
 
 	@ManyToMany(mappedBy = "songs")
     @JsonIgnore
 	private List<User> users;
+	
+	@ManyToMany(mappedBy = "songs")
+    @JsonIgnore
+	private List<PlayList> playlists;
+
+	public Song() {
+		super();
+	}
+
+	public Song(Long id, String artist_name, String track_name, String release_date, String genre, Integer len,
+			String topic, Double age, List<User> users, List<PlayList> playlists) {
+		super();
+		this.id = id;
+		this.artist_name = artist_name;
+		this.track_name = track_name;
+		this.release_date = release_date;
+		this.genre = genre;
+		this.len = len;
+		this.topic = topic;
+		this.age = age;
+		this.users = users;
+		this.playlists = playlists;
+	}
+
+	public Song(String artist_name, String track_name, String release_date, String genre, Integer len, String topic,
+			Double age, List<User> users, List<PlayList> playlists) {
+		super();
+		this.artist_name = artist_name;
+		this.track_name = track_name;
+		this.release_date = release_date;
+		this.genre = genre;
+		this.len = len;
+		this.topic = topic;
+		this.age = age;
+		this.users = users;
+		this.playlists = playlists;
+	}
+
+	public Song(String artist_name, String track_name, String release_date, String genre, Integer len, String topic,
+			Double age) {
+		super();
+		this.artist_name = artist_name;
+		this.track_name = track_name;
+		this.release_date = release_date;
+		this.genre = genre;
+		this.len = len;
+		this.topic = topic;
+		this.age = age;
+	}
+
+	public Song(Long id, String artist_name, String track_name, String release_date, String genre, Integer len,
+			String topic, Double age) {
+		super();
+		this.id = id;
+		this.artist_name = artist_name;
+		this.track_name = track_name;
+		this.release_date = release_date;
+		this.genre = genre;
+		this.len = len;
+		this.topic = topic;
+		this.age = age;
+	}
 
 	public Long getId() {
 		return id;
 	}
 
-	public Song(Long id, String artist_name, String track_name, String release_date, String genre, int len,
-			String topic, double age) {
-		super();
+	public void setId(Long id) {
 		this.id = id;
-		this.artist_name = artist_name;
-		this.track_name = track_name;
-		this.release_date = release_date;
-		this.genre = genre;
-		this.len = len;
-		this.topic = topic;
-		this.age = age;
-	}
-
-	public Song(Long id, String artist_name, String track_name, String release_date, String genre, int len,
-			String topic, double age, List<User> users) {
-		super();
-		this.id = id;
-		this.artist_name = artist_name;
-		this.track_name = track_name;
-		this.release_date = release_date;
-		this.genre = genre;
-		this.len = len;
-		this.topic = topic;
-		this.age = age;
-		this.users = users;
-	}
-
-	public Song(String artist_name, String track_name, String release_date, String genre, int len, String topic,
-			double age, List<User> users) {
-		super();
-		this.artist_name = artist_name;
-		this.track_name = track_name;
-		this.release_date = release_date;
-		this.genre = genre;
-		this.len = len;
-		this.topic = topic;
-		this.age = age;
-		this.users = users;
-	}
-
-	public Song() {
-		super();
 	}
 
 	public String getArtist_name() {
@@ -112,11 +134,11 @@ public class Song {
 		this.genre = genre;
 	}
 
-	public int getLen() {
+	public Integer getLen() {
 		return len;
 	}
 
-	public void setLen(int len) {
+	public void setLen(Integer len) {
 		this.len = len;
 	}
 
@@ -128,11 +150,11 @@ public class Song {
 		this.topic = topic;
 	}
 
-	public double getAge() {
+	public Double getAge() {
 		return age;
 	}
 
-	public void setAge(double age) {
+	public void setAge(Double age) {
 		this.age = age;
 	}
 
@@ -144,21 +166,24 @@ public class Song {
 		this.users = users;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public List<PlayList> getPlaylists() {
+		return playlists;
+	}
+
+	public void setPlaylists(List<PlayList> playlists) {
+		this.playlists = playlists;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(age);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result + ((age == null) ? 0 : age.hashCode());
 		result = prime * result + ((artist_name == null) ? 0 : artist_name.hashCode());
 		result = prime * result + ((genre == null) ? 0 : genre.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + len;
+		result = prime * result + ((len == null) ? 0 : len.hashCode());
+		result = prime * result + ((playlists == null) ? 0 : playlists.hashCode());
 		result = prime * result + ((release_date == null) ? 0 : release_date.hashCode());
 		result = prime * result + ((topic == null) ? 0 : topic.hashCode());
 		result = prime * result + ((track_name == null) ? 0 : track_name.hashCode());
@@ -175,7 +200,10 @@ public class Song {
 		if (getClass() != obj.getClass())
 			return false;
 		Song other = (Song) obj;
-		if (Double.doubleToLongBits(age) != Double.doubleToLongBits(other.age))
+		if (age == null) {
+			if (other.age != null)
+				return false;
+		} else if (!age.equals(other.age))
 			return false;
 		if (artist_name == null) {
 			if (other.artist_name != null)
@@ -192,7 +220,15 @@ public class Song {
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (len != other.len)
+		if (len == null) {
+			if (other.len != null)
+				return false;
+		} else if (!len.equals(other.len))
+			return false;
+		if (playlists == null) {
+			if (other.playlists != null)
+				return false;
+		} else if (!playlists.equals(other.playlists))
 			return false;
 		if (release_date == null) {
 			if (other.release_date != null)
@@ -221,8 +257,10 @@ public class Song {
 	public String toString() {
 		return "Song [id=" + id + ", artist_name=" + artist_name + ", track_name=" + track_name + ", release_date="
 				+ release_date + ", genre=" + genre + ", len=" + len + ", topic=" + topic + ", age=" + age + ", users="
-				+ users + "]";
+				+ users + ", playlists=" + playlists + "]";
 	}
+
+	
 	
 	
 	
