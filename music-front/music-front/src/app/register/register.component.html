@@ -1,0 +1,18 @@
+<form [formGroup]="profileForm">
+    <label for="username">Username: </label>
+    <input required id="username" type="text" formControlName="username">
+    <br />
+    <label for="age">Username: </label>
+    <input required (input)="onChnage()" id="age" type="number" min="15" max="100" step="1" formControlName="number">
+    <br />
+    <label for="password">Password: </label>
+    <input required id="password" type="password" formControlName="password">
+    <br />
+    <label for="first-name">First Name: </label>
+    <input required id="first-name" type="text" formControlName="first_name">
+    <br />
+    <label for="last-name">Last Name: </label>
+    <input required id="last-name" type="text" formControlName="last_name">
+    <br />
+    <button type="submit" (click)="addUser()">Add User</button>
+  </form>

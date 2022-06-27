@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sbnz.music.domain.User;
@@ -31,6 +33,12 @@ public class UserController {
         return new ResponseEntity<List<User>>(userService.getUsers(), HttpStatus.OK);
     }
     
+    @GetMapping(value = "/login/{username}/{password}")
+    public ResponseEntity<User> login(@PathVariable("username") String username, @PathVariable("password") String password) {
+
+        return new ResponseEntity<User>(userService.login(username, password), HttpStatus.OK);
+    }
+    
     @PutMapping(value = "/like/{userId}/{songId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<User> updateUser(@PathVariable("userId") String userId, @PathVariable("songId") String songId)
     {
@@ -40,6 +48,19 @@ public class UserController {
     		return new ResponseEntity<User>(user, HttpStatus.ALREADY_REPORTED);
     		
         return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<User> process(@RequestBody User user) throws Exception 
+    {
+    	
+    	User ret = userService.register(user);
+    	
+    	if(user==null || ret == null)
+    		return new ResponseEntity<User>(ret, HttpStatus.NOT_IMPLEMENTED);
+    	
+    	return new ResponseEntity<User>(ret, HttpStatus.OK);
+
     }
 
 

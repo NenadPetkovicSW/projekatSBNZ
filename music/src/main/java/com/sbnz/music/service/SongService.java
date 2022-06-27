@@ -31,9 +31,21 @@ public class SongService {
     
     public List<Song> findByTopicIs(String topic) {
 
-      return songRepository.findByTopicIs(topic);
-  
-    }
+        return songRepository.findByTopicIs(topic);
+    
+      }
+    
+    public List<Song> search(String name,Long userId) {
+
+        return songRepository.search(name, userId);
+    
+      }
+    
+    public List<Song> getLikedSongs(Long userId) {
+
+        return songRepository.getLikedSongs(userId);
+    
+      }
     
     public List<Song> findByGenreIs(String genre) {
 

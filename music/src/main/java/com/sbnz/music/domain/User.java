@@ -28,18 +28,18 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private Long id;
-	@Column(name= "username", nullable = false)
+	@Column(name= "username", nullable = true, unique = true)
 	private String username;
-	@Column(name= "first_name", nullable = false)
+	@Column(name= "first_name", nullable = true)
 	private String first_name;
-	@Column(name= "last_name", nullable = false)
+	@Column(name= "last_name", nullable = true)
 	private String last_name;
-	@Column(name= "password", nullable = false)
+	@Column(name= "password", nullable = true)
 	private String password;
-	@Column(name= "age", nullable = false)
+	@Column(name= "age", nullable = true)
 	private Integer age;
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private UserType type;
 	@Enumerated(EnumType.STRING)
 	@Column(name= "age_group", nullable = true)

@@ -40,6 +40,14 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 	@Query(value = "SELECT * FROM songs s WHERE s.genre LIKE ?1", nativeQuery = true)
 	List<Song> findByGenreIs(String genre);
 	
+	@Query(value = "SELECT * FROM songs s WHERE (s.track_name LIKE ?1% "
+			+ "OR s.artist_name LIKE ?1%) "
+			+ "AND s.song_id NOT IN (SELECT us.song_id FROM users_songs us WHERE us.user_id = ?2)", nativeQuery = true)
+	List<Song> search(String name, Long userId);
+	
+	@Query(value = "SELECT * FROM songs s WHERE "
+			+ "s.song_id IN (SELECT us.song_id FROM users_songs us WHERE us.user_id = ?1)", nativeQuery = true)
+	List<Song> getLikedSongs(Long userId);
 	
 	List<Song> findByAgeBetween(Double startAge, Double endAge);
 	

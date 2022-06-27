@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.sbnz.music.domain.Song;
 import com.sbnz.music.domain.User;
+import com.sbnz.music.domain.UserType;
 import com.sbnz.music.repository.SongRepository;
 import com.sbnz.music.repository.UserRepository;;
 
@@ -85,6 +86,27 @@ public class UserService {
     	userRepository.save(user);
     	
 		return user;
+    }
+    
+    public User login(String username, String password) {
+    	return userRepository.login(username, password);
+    }
+    
+    public User register(User user) {
+    	User pom = new User();
+    	pom.setAge(user.getAge());
+    	pom.setAgeGroup(user.getAgeGroup());
+    	pom.setFirst_name(user.getFirst_name());
+    	pom.setLast_name(user.getLast_name());
+    	pom.setPassword(user.getPassword());
+    	pom.setType(UserType.REGULAR);
+    	pom.setUsername(user.getUsername());
+    	
+    	User ret = userRepository.save(pom);
+    	
+    	rulesSession.insert(ret);
+    	rulesSession.fireAllRules();
+    	return userRepository.save(ret);
     }
 
 }
