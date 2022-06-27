@@ -30,24 +30,55 @@ public class PlayListController {
         return new ResponseEntity<List<PlayList>>(playListService.getPlayLists(), HttpStatus.OK);
     }
     
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<PlayList> getUsers(@PathVariable("id") String id) {
+    	PlayList pl = playListService.getPlayList(Long.parseLong(id));
+    	
+    	if(pl == null)
+            return new ResponseEntity<PlayList>(pl, HttpStatus.NOT_ACCEPTABLE);
+    	
+        return new ResponseEntity<PlayList>(pl, HttpStatus.OK);
+    }
+    
     @GetMapping(value = "/createPlayListAlfa/{userId}/{name}/{howLong}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PlayList> createPlayListAlfa(@PathVariable("userId") String userId, @PathVariable("name") String name, @PathVariable("howLong") String howLong) {
-
-        return new ResponseEntity<PlayList>(playListService.createPlayListAlfa(Long.parseLong(userId), name, Integer.parseInt(howLong)), HttpStatus.OK);
+    	PlayList pl = playListService.createPlayListAlfa(Long.parseLong(userId), name, Integer.parseInt(howLong));
+    	
+    	if(pl == null)
+            return new ResponseEntity<PlayList>(pl, HttpStatus.NOT_ACCEPTABLE);
+    	
+        return new ResponseEntity<PlayList>(pl, HttpStatus.OK);
     }
     
     @GetMapping(value = "/createPlayListBeta/{userId}/{name}/{howLong}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PlayList> createPlayListBeta(@PathVariable("userId") String userId, @PathVariable("name") String name, @PathVariable("howLong") String howLong) {
 
-        return new ResponseEntity<PlayList>(playListService.createPlayListBeta(Long.parseLong(userId), name, Integer.parseInt(howLong)), HttpStatus.OK);
+    	PlayList pl = playListService.createPlayListBeta(Long.parseLong(userId), name, Integer.parseInt(howLong));
+    	
+    	if(pl == null)
+            return new ResponseEntity<PlayList>(pl, HttpStatus.NOT_ACCEPTABLE);
+    	
+        return new ResponseEntity<PlayList>(pl, HttpStatus.OK);   
     }
     
     @GetMapping(value = "/createPlayListGama/{userId}/{name}/{howLong}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PlayList> createPlayListGama(@PathVariable("userId") String userId, @PathVariable("name") String name, @PathVariable("howLong") String howLong) {
-    	Integer hl = Integer.parseInt(howLong);
-    	Long ui = Long.parseLong(userId);
+    	PlayList pl = playListService.createPlayListGama(Long.parseLong(userId), name, Integer.parseInt(howLong));
     	
-        return new ResponseEntity<PlayList>(playListService.createPlayListGama(ui, name, hl), HttpStatus.OK);
+    	if(pl == null)
+            return new ResponseEntity<PlayList>(pl, HttpStatus.NOT_ACCEPTABLE);
+    	
+        return new ResponseEntity<PlayList>(pl, HttpStatus.OK);
+    }
+    
+    @GetMapping(value = "/getUsersPlay/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<PlayList>> getUsersPlay(@PathVariable("userId") String userId) {
+    	List<PlayList> pl = playListService.getPlayListsOfUser(Long.parseLong(userId));
+    	
+    	if(pl == null)
+            return new ResponseEntity<List<PlayList>>(pl, HttpStatus.NOT_ACCEPTABLE);
+    	
+        return new ResponseEntity<List<PlayList>>(pl, HttpStatus.OK);
     }
     
     

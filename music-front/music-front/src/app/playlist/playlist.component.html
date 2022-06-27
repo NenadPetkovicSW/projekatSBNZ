@@ -1,1 +1,25 @@
-<p>playlist works!</p>
+<div class="container mt-5">
+    <h2>{{this.pl.name}}</h2>
+    <table class="table table-striped">
+      <thead>
+          <tr>
+            <th>Track name</th>
+            <th>Artist name</th>
+            <th>Release date</th>
+            <th>Genre</th>
+            <th>Len</th>
+            <th>Topic</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let song of Songs">
+          <td>{{ song.track_name }}</td>
+          <td>{{ song.artist_name }}</td>
+          <td>{{ song.release_date }}</td>
+          <td>{{ song.genre }}</td>
+          <td>{{ song.len }}</td>
+          <td>{{ song.topic }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

@@ -1,1 +1,20 @@
-<p>my-play-lists works!</p>
+<div class="container mt-5">
+    <h2>My PlayLists</h2>
+    <table class="table table-striped">
+      <thead>
+          <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Total Len</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let play of PlayLists">
+          <td>{{ play.name }}</td>
+          <td>{{ play.type }}</td>
+          <td>{{ play.len }}</td>
+          <td><button (click)="btnClick(play.id)" id="delete_button">Open</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

@@ -16,10 +16,16 @@
     </ul>
     <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
       <li class="nav-item">
+        <a href="/dicover" class="nav-link" routerLink="dicover">Dicover</a>
+      </li>
+      <li class="nav-item">
         <a href="/search" class="nav-link" routerLink="search">Search Songs</a>
       </li>
       <li class="nav-item">
         <a href="/liked" class="nav-link" routerLink="liked">Liked Songs</a>
+      </li>
+      <li class="nav-item">
+        <a href="/myPlaylists" class="nav-link" routerLink="myPlaylists">My PlayLists</a>
       </li>
       <li class="nav-item">
         <a href="/profile" class="nav-link" routerLink="profile">{{ username }}</a>

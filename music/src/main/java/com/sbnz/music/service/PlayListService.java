@@ -39,9 +39,28 @@ public class PlayListService {
         return playListRepository.findAll();
     }
     
+    
+    public PlayList getPlayList(Long id) {
+
+        rulesSession.fireAllRules();
+
+        return playListRepository.findById(id).get();
+    }
+    
+    public List<PlayList> getPlayListsOfUser(Long userId) {
+
+        rulesSession.fireAllRules();
+
+        return playListRepository.findAllByUserId(userId);
+    }
+    
 	public PlayList createPlayListAlfa(Long userId, String name, int howLong) {
 	    	
 	    	User user = userService.getUser(userId);
+	    	
+	    	if(user.getSongs().size() == 0)
+	    		return null;
+	    	
 	    	List<Song> songs = songService.findAlfaPlaylist(userId, getAgeRestriction(user.getAgeGroup()));
 	    	
 	    	if(howLong < songs.size())
@@ -69,6 +88,10 @@ public class PlayListService {
 	public PlayList createPlayListBeta(Long userId, String name, int howLong) {
 		
 		User user = userService.getUser(userId);
+		
+		if(user.getSongs().size() == 0)
+    		return null;
+		
 		List<Song> songs = songService.findBetaPlaylist(userId);
 		
 		if(howLong < songs.size())
@@ -96,6 +119,10 @@ public class PlayListService {
 	public PlayList createPlayListGama(Long userId, String name, int howLong) {
 		
 		User user = userService.getUser(userId);
+		
+		if(user.getSongs().size() == 0)
+    		return null;
+		
 		List<Song> songs = songService.findGamaPlaylist(userId, getAgeRestriction(user.getAgeGroup()));
 		System.out.print(songs);
 		if(howLong < songs.size())

@@ -1,1 +1,11 @@
-<p>discover works!</p>
+<br /><br />
+<form>
+<h6>Give it a name:</h6>
+<input (input)="onChnageTxt()" id="name" type="text" value="Play"/>
+<h6>How many songs?</h6>
+<input (input)="onChnage()" id="howMuch" type="number" min="0" value="10" max="50"/><br /><br /><br />
+<h3>Create <b>Alfa</b> Playlist - more personalised</h3>
+<input (click)="onAlfa()" id="alfa" type="button" value="CREATE" /><br /><br /><br />
+<h4>Create <b>Beta</b> Playlist - less personalised</h4>
+<input (click)="onBeta()" id="beta" type="button" value="CREATE" /><br />
+</form>
